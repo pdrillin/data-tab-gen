@@ -1,5 +1,5 @@
 {
-  "name": "gengrid",
+  "name": "data-tab-gen",
   "version": "1.0.0",
   "description": "packege for representing and manipulating tabular data",
   "main": "dist/gen-grid.umd.js",
@@ -20,7 +20,7 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/pdrillin/genGrid.git"
+    "url": "git+ssh://git@github.com/pdrillin/data-tab-gen.git"
   },
   "keywords": [
     "data",
@@ -30,7 +30,7 @@
   "author": "Pierre DRILLIN",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pdrillin/genGrid/issues"
+    "url": "https://github.com/pdrillin/data-tab-gen/issues"
   },
-  "homepage": "https://github.com/pdrillin/genGrid#readme"
+  "homepage": "https://github.com/pdrillin/data-tab-gen#readme"
 }
