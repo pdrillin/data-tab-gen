@@ -1,9 +1,9 @@
 {
   "name": "data-tab-gen",
   "version": "1.0.0",
-  "description": "packege for representing and manipulating tabular data",
-  "main": "dist/gen-grid.umd.js",
-  "module": "dist/gen-grid.es.js",
+  "description": "package for representing and manipulating tabular data",
+  "main": "dist/data-tab-gen.umd.js",
+  "module": "dist/data-tab-gen.es.js",
   "types": "dist/index.d.ts",
   "style": "dist/style.css",
   "scripts": {

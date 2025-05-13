@@ -4,8 +4,8 @@ export default defineConfig({
     build: {
         lib: {
             entry: 'src/index.ts',
-            name: 'genGrid',
-            fileName: 'gen-grid',
+            name: 'data-tab-gen',
+            fileName: 'data-tab-gen',
             formats: ['es', 'umd']
         },
         rollupOptions: {
