@@ -1,0 +1,31 @@
+{
+  "name": "gengrid",
+  "version": "1.0.0",
+  "description": "packege for representing and manipulating tabular data",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pdrillin/genGrid.git"
+  },
+  "keywords": [
+    "data",
+    "tabular",
+    "grid"
+  ],
+  "author": "Pierre DRILLIN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pdrillin/genGrid/issues"
+  },
+  "homepage": "https://github.com/pdrillin/genGrid#readme",
+  "dependencies": {
+    "vite": "^6.3.5"
+  }
+}
