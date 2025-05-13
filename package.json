@@ -2,12 +2,20 @@
   "name": "gengrid",
   "version": "1.0.0",
   "description": "packege for representing and manipulating tabular data",
-  "main": "dist/index.js",
+  "main": "dist/gen-grid.umd.js",
+  "module": "dist/gen-grid.es.js",
+  "types": "dist/index.d.ts",
+  "style": "dist/style.css",
   "scripts": {
-    "build": "tsc"
+    "build": "vite build"
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "sass": "^1.88.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
   },
   "private": true,
   "repository": {
@@ -24,8 +32,5 @@
   "bugs": {
     "url": "https://github.com/pdrillin/genGrid/issues"
   },
-  "homepage": "https://github.com/pdrillin/genGrid#readme",
-  "dependencies": {
-    "vite": "^6.3.5"
-  }
+  "homepage": "https://github.com/pdrillin/genGrid#readme"
 }
