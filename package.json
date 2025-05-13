@@ -17,7 +17,7 @@
     "typescript": "^5.8.3",
     "vite": "^6.3.5"
   },
-  "private": true,
+  "private": false,
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/pdrillin/genGrid.git"
