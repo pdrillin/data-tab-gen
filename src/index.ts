@@ -1,5 +1,5 @@
 // src/index.ts
-
+import "./styles.scss"
 export interface TableOptions {
     headers: string[];
     rows: string[][];
