@@ -1,27 +1,17 @@
 function w({
   headers: n,
-  rows: s,
-  id: l = "my-table",
-  className: r = "",
-  filterMode: t = "none"
+  rows: p,
+  id: o = "my-table",
+  className: e = "",
+  filterMode: t = "none",
+  resizable: s = !1
 }) {
-  const a = `id="${l}"`, c = r ? `class="${r}"` : "", i = n.map((e) => `<th>${e}</th>`).join(""), u = n.map(
-    (e, o) => `<th><input type="text" data-col="${o}" onkeyup="filterMultiColumn('${l}')" placeholder="Filtrer..."></th>`
-  ).join(""), p = `
-    <input type="text" onkeyup="filterGlobal('${l}', this.value)" placeholder="Filtrer globalement..." style="margin-bottom: 10px; width: 100%; padding: 4px;">
-  `, b = t === "column" ? `<tr>${u}</tr>` : "", d = t === "global" ? p : "", m = s.map(
-    (e) => `<tr>${e.map((o) => `<td>${o}</td>`).join("")}</tr>`
-  ).join("");
-  return `
-    ${d}
-    <table ${a} ${c}>
-      <thead>
-        <tr>${i}</tr>
-        ${b}
-      </thead>
-      <tbody>${m}</tbody>
-    </table>
-    ${`
+  const r = `id="${o}"`, i = e ? `class="${e}"` : "", a = n.map((c) => `<th>${c}</th>`).join(""), l = n.map(
+    (c, d) => `<th><input type="text" data-col="${d}" onkeyup="filterMultiColumn('${o}')" placeholder="Filtrer..."></th>`
+  ).join(""), u = `
+    <input type="text" onkeyup="filterGlobal('${o}', this.value)" placeholder="Filtrer globalement..." style="margin-bottom: 10px; width: 100%; padding: 4px;">`, m = t === "column" ? `<tr>${l}</tr>` : "", b = t === "global" ? u : "", y = p.map(
+    (c) => `<tr>${c.map((d) => `<td>${d}</td>`).join("")}</tr>`
+  ).join(""), f = `
     ${t === "column" ? `
       <script>
         function filterMultiColumn(tableId) {
@@ -46,8 +36,7 @@ function w({
             row.style.display = visible ? "" : "none";
           });
         }
-      <\/script>
-    ` : ""}
+      <\/script>` : ""}
     
     ${t === "global" ? `
       <script>
@@ -61,10 +50,43 @@ function w({
             row.style.display = text.includes(filter) ? "" : "none";
           });
         }
-      <\/script>
-    ` : ""}
-  `}
+      <\/script>` : ""}
+      
+      ${s === !0 ? `
+      <script>
+        (${h.toString()})("${o}");
+      <\/script>` : ""}
+    `;
+  return `
+    ${b}
+    <table ${r} ${i}>
+      <thead>
+        <tr>${a}</tr>
+        ${m}
+      </thead>
+      <tbody>${y}</tbody>
+    </table>
+    ${f}
   `.trim();
+}
+function h(n) {
+  document.getElementById(n).querySelectorAll("thead th").forEach((e) => {
+    e.style.position = "relative";
+    const t = document.createElement("div");
+    t.style.position = "absolute", t.style.top = "0", t.style.right = "0", t.style.width = "5px", t.style.cursor = "col-resize", t.style.userSelect = "none", t.style.height = "100%";
+    let s = 0, r = 0;
+    t.addEventListener("mousedown", (l) => {
+      s = l.clientX, r = e.offsetWidth, document.addEventListener("mousemove", i), document.addEventListener("mouseup", a), l.preventDefault();
+    });
+    function i(l) {
+      const u = r + (l.clientX - s);
+      e.style.width = u + "px";
+    }
+    function a() {
+      document.removeEventListener("mousemove", i), document.removeEventListener("mouseup", a);
+    }
+    e.appendChild(t);
+  });
 }
 export {
   w as generateHtmlTable

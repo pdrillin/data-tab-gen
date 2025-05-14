@@ -7,6 +7,7 @@ export interface TableOptions {
     id?: string;
     className?: string;
     filterMode?: "none" | "global" | "column"; // 👈 choix du mode de filtrage
+    resizable?: boolean; // Option pour redimenssionner les colonnes
 }
 
 export function generateHtmlTable({
@@ -14,7 +15,8 @@ export function generateHtmlTable({
                                       rows,
                                       id = "my-table",
                                       className = "",
-                                      filterMode = "none"
+                                      filterMode = "none",
+                                      resizable = false
                                   }: TableOptions): string {
     const tableIdAttr = `id="${id}"`;
     const classAttr = className ? `class="${className}"` : "";
@@ -28,8 +30,7 @@ export function generateHtmlTable({
 
     // Barre de filtre global
     const globalFilterInput = `
-    <input type="text" onkeyup="filterGlobal('${id}', this.value)" placeholder="Filtrer globalement..." style="margin-bottom: 10px; width: 100%; padding: 4px;">
-  `;
+    <input type="text" onkeyup="filterGlobal('${id}', this.value)" placeholder="Filtrer globalement..." style="margin-bottom: 10px; width: 100%; padding: 4px;">`;
 
     const filterRowHtml = filterMode === "column" ? `<tr>${filterInputsRow}</tr>` : "";
     const globalFilterHtml = filterMode === "global" ? globalFilterInput : "";
@@ -64,8 +65,7 @@ export function generateHtmlTable({
             row.style.display = visible ? "" : "none";
           });
         }
-      </script>
-    ` : ""}
+      </script>` : ""}
     
     ${filterMode === "global" ? `
       <script>
@@ -79,9 +79,15 @@ export function generateHtmlTable({
             row.style.display = text.includes(filter) ? "" : "none";
           });
         }
-      </script>
-    ` : ""}
-  `;
+      </script>` : ""}
+      
+      ${resizable === true ? `
+      <script>
+        (${enableResizableColumns.toString()})("${id}");
+      </script>` : ""}
+    `;
+
+
 
     return `
     ${globalFilterHtml}
@@ -94,4 +100,46 @@ export function generateHtmlTable({
     </table>
     ${scripts}
   `.trim();
+}
+
+function enableResizableColumns(tableId :string) {
+    const table = document.getElementById(tableId);
+    const thElements = table.querySelectorAll("thead th");
+
+    thElements.forEach(th => {
+        th.style.position = "relative";
+
+        const grip = document.createElement("div");
+        grip.style.position = "absolute";
+        grip.style.top = "0";
+        grip.style.right = "0";
+        grip.style.width = "5px";
+        grip.style.cursor = "col-resize";
+        grip.style.userSelect = "none";
+        grip.style.height = "100%";
+
+        let startX = 0;
+        let startWidth = 0;
+
+        grip.addEventListener("mousedown", (e) => {
+            startX = e.clientX;
+            startWidth = th.offsetWidth;
+
+            document.addEventListener("mousemove", onMouseMove);
+            document.addEventListener("mouseup", onMouseUp);
+            e.preventDefault();
+        });
+
+        function onMouseMove(e :MouseEvent) {
+            const newWidth = startWidth + (e.clientX - startX);
+            th.style.width = newWidth + "px";
+        }
+
+        function onMouseUp() {
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
+        }
+
+        th.appendChild(grip);
+    });
 }

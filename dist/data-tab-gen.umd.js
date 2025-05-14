@@ -1,16 +1,6 @@
-(function(t,e){typeof exports=="object"&&typeof module<"u"?e(exports):typeof define=="function"&&define.amd?define(["exports"],e):(t=typeof globalThis<"u"?globalThis:t||self,e(t["data-tab-gen"]={}))})(this,function(t){"use strict";function e({headers:s,rows:a,id:n="my-table",className:i="",filterMode:l="none"}){const c=`id="${n}"`,u=i?`class="${i}"`:"",d=s.map(o=>`<th>${o}</th>`).join(""),p=s.map((o,r)=>`<th><input type="text" data-col="${r}" onkeyup="filterMultiColumn('${n}')" placeholder="Filtrer..."></th>`).join(""),b=`
-    <input type="text" onkeyup="filterGlobal('${n}', this.value)" placeholder="Filtrer globalement..." style="margin-bottom: 10px; width: 100%; padding: 4px;">
-  `,f=l==="column"?`<tr>${p}</tr>`:"",m=l==="global"?b:"",y=a.map(o=>`<tr>${o.map(r=>`<td>${r}</td>`).join("")}</tr>`).join("");return`
-    ${m}
-    <table ${c} ${u}>
-      <thead>
-        <tr>${d}</tr>
-        ${f}
-      </thead>
-      <tbody>${y}</tbody>
-    </table>
-    ${`
-    ${l==="column"?`
+(function(o,n){typeof exports=="object"&&typeof module<"u"?n(exports):typeof define=="function"&&define.amd?define(["exports"],n):(o=typeof globalThis<"u"?globalThis:o||self,n(o["data-tab-gen"]={}))})(this,function(o){"use strict";function n({headers:r,rows:b,id:s="my-table",className:e="",filterMode:t="none",resizable:i=!1}){const a=`id="${s}"`,c=e?`class="${e}"`:"",u=r.map(d=>`<th>${d}</th>`).join(""),l=r.map((d,m)=>`<th><input type="text" data-col="${m}" onkeyup="filterMultiColumn('${s}')" placeholder="Filtrer..."></th>`).join(""),p=`
+    <input type="text" onkeyup="filterGlobal('${s}', this.value)" placeholder="Filtrer globalement..." style="margin-bottom: 10px; width: 100%; padding: 4px;">`,y=t==="column"?`<tr>${l}</tr>`:"",h=t==="global"?p:"",w=b.map(d=>`<tr>${d.map(m=>`<td>${m}</td>`).join("")}</tr>`).join(""),g=`
+    ${t==="column"?`
       <script>
         function filterMultiColumn(tableId) {
           const table = document.getElementById(tableId);
@@ -34,10 +24,9 @@
             row.style.display = visible ? "" : "none";
           });
         }
-      <\/script>
-    `:""}
+      <\/script>`:""}
     
-    ${l==="global"?`
+    ${t==="global"?`
       <script>
         function filterGlobal(tableId, value) {
           const table = document.getElementById(tableId);
@@ -49,7 +38,20 @@
             row.style.display = text.includes(filter) ? "" : "none";
           });
         }
-      <\/script>
-    `:""}
-  `}
-  `.trim()}t.generateHtmlTable=e,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})});
+      <\/script>`:""}
+      
+      ${i===!0?`
+      <script>
+        (${f.toString()})("${s}");
+      <\/script>`:""}
+    `;return`
+    ${h}
+    <table ${a} ${c}>
+      <thead>
+        <tr>${u}</tr>
+        ${y}
+      </thead>
+      <tbody>${w}</tbody>
+    </table>
+    ${g}
+  `.trim()}function f(r){document.getElementById(r).querySelectorAll("thead th").forEach(e=>{e.style.position="relative";const t=document.createElement("div");t.style.position="absolute",t.style.top="0",t.style.right="0",t.style.width="5px",t.style.cursor="col-resize",t.style.userSelect="none",t.style.height="100%";let i=0,a=0;t.addEventListener("mousedown",l=>{i=l.clientX,a=e.offsetWidth,document.addEventListener("mousemove",c),document.addEventListener("mouseup",u),l.preventDefault()});function c(l){const p=a+(l.clientX-i);e.style.width=p+"px"}function u(){document.removeEventListener("mousemove",c),document.removeEventListener("mouseup",u)}e.appendChild(t)})}o.generateHtmlTable=n,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})});
